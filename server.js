@@ -178,6 +178,21 @@ function validateToolCalls(toolCalls) {
   return valid;
 }
 
+// Root & API Info Endpoints
+app.get(['/', '/api'], (req, res) => {
+  res.json({
+    status: 'online',
+    service: 'RAADHE AI Brain Proxy Gateway',
+    version: '4.0.0',
+    endpoints: {
+      health: 'GET /health',
+      tools: 'GET /api/tools',
+      chat: 'POST /api/chat'
+    },
+    message: 'RAADHE AI Backend is active and running. Send POST requests to /api/chat to communicate.'
+  });
+});
+
 // Health Check Endpoint (does not expose keys)
 app.get('/health', (req, res) => {
   const provider = process.env.AI_PROVIDER || 'gemini';
